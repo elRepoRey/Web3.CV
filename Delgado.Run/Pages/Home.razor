@@ -1,0 +1,78 @@
+﻿<style>
+    /* RGB Gradient - Darker Bottom */
+    .name-container {
+        background: -moz-linear-gradient(top, #1C1C1C 0%, #29221E 100%);
+        background: -webkit-linear-gradient(top, #1C1C1C 0%, #29221E 100%);
+        background: linear-gradient(to bottom, #1C1C1C 0%, #29221E 100%);
+    }
+
+    /* Custom Scrollbar Styles */
+    .cv-container::-webkit-scrollbar {
+        width: 8px; /* Width of the scrollbar */
+    }
+
+    .cv-container::-webkit-scrollbar-track {
+        background: inherit; /* Color of the scrollbar track */
+    }
+
+    .cv-container::-webkit-scrollbar-thumb {
+        background-color: #A0522D; /* Color of the scrollbar itself */
+        border-radius: 6px; /* Rounded corners of the scrollbar */
+        
+    }
+</style>
+
+
+@page "/"
+
+<div class="main-container" style="display:flex; flex-direction:column; background-color: #1c1c1c; color: #fff;">
+
+    <div class="name-container" style=" height: 100vh; width: 100vw; min-width:25rem;
+    display: flex; flex-direction: column; justify-content: start; align-items: center; gap: .8rem;">
+    
+
+        <!-- Name and Title -->
+        <div style="display: inline-block; padding: 1.5rem; border: 6px solid #fff; text-align: center; font-family: 'Space Mono', monospace; margin-top: 7rem;">
+            <h1 style="letter-spacing: 1.48rem; margin-right: -1.48rem;">SILVIO</h1>
+            <h1 style="letter-spacing: 1rem; margin-right: -1rem;">DELGADO</h1>
+        </div>
+        <div style="text-align: center;">
+            <p style="font-weight: bold; font-family: 'DM Sans', sans-serif; letter-spacing: .1rem">.NET CLOUD DEVELOPER STUDENT</p>
+        </div>
+
+        <!-- CV -->
+        <div class="cv-container" style="display:flex; gap:2rem; flex-direction:column; overflow-y:auto;margin-top: 1.5rem;">
+        <!-- Introduction -->
+            <section class="article-container" style="max-width: 800px; font-size: 1rem; line-height: 2; font-family: 'Roboto', sans-serif;
+            width:inherit;  text-align: justify;;border-block:dotted;padding-top:1rem; ">
+            <h6>
+                <b style="">INTRODUCTION</b>
+            </h6>
+            <p>
+                My journey began with Python, sparking an interest in further technology exploration.
+                This led me to delve into web development with <b>JavaScript</b>, <b>TypeScript</b>, <b>React</b>, and <b>Next.js</b>,
+                and further expand my skills into user authentication, <b>Google Cloud</b>, and database management
+                with  <b>SQL</b> and noSQL. My growing interest guided
+                me towards <b>Azure services</b> , setting the
+                stage for my decision to pursue a <b>.NET</b> education. This step marks my commitment to deepening
+                my expertise and embrace new opportunities</p>
+        </section>
+       
+            <section>
+                <h6>
+                    <b>UTBILDNING</b>
+                    </h6>
+                <b>.NET Cloud Development, IT-Högskolan 2023 -2025</b>
+            </section>
+            <section>
+                <h6><b>ERFARENHET</b></h6>
+                <p>Truckförare, Volvo Cars, Göteborg — 2015 - nuvarande</p>
+            </section>
+
+            <section>
+                <h6><b>FÄRDIGHETER</b></h6>
+                <p>Teknologier: .NET, C#, Azure...</p>
+            </section>
+        </div>
+    </div>
+</div>

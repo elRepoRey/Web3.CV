@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Delgado.Run/wwwroot/appsettings.json
+/Delgado.Server/appsettings.json
+/Delgado.Run/wwwroot/appsettings.Development.json
