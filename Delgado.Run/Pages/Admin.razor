@@ -1,0 +1,371 @@
+﻿@page "/admin"
+@attribute [Authorize]
+@inject HttpClient Http
+@using Delgado.Shared
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Globalization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+@using System.Security.Claims
+@inject IConfiguration Configuration
+
+
+<style>
+    /* Adjusted the body styling to be scoped to this component */
+    .admin-page {
+        background-color: #f0f2f5;
+        color: #333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .admin-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+
+    h1 {
+        color: #0056b3;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    fieldset {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    legend {
+        width: auto;
+        padding: 0 10px;
+        font-weight: bold;
+        color: #0056b3;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"], textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px; 
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .button-logout {
+        background-color: #d9534f; 
+        border: none;
+        cursor: pointer;
+    }
+
+        .button-logout:hover {
+            background-color: #c9302c;
+        }
+
+    .button-save {
+        background-color: #5cb85c; 
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+    }
+
+    .button-save:hover {
+        background-color: #4cae4c;
+    }
+
+    .floating-home-btn {
+        position: fixed;
+        top: 20px;
+        right: 35px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .floating-home-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    }
+
+    .floating-home-btn:hover {
+            background-color: #0056b3;
+        }
+
+    .floating-home-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .floating-home-btn {
+        flex-direction: row;
+    }
+
+    
+   
+</style>
+
+
+
+<div style="overflow:auto; height:100vh; padding: 1rem; background-color: #1c1c1c; color: #fff;">
+    <h1 class="text-center mb-3">ADMIN</h1>
+    <button class="floating-home-btn" style=" background-color: darkred;" @onclick="NavigateToHome">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+        </svg>
+    </button>
+<EditForm Model="cv" OnValidSubmit="async (model) => await HandleValidSubmit()">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <!--PERSONAL INFORMATION-->
+    <fieldSet>
+        <legend>Personal Information</legend>
+        <div>
+            <label for="summary">Summary:</label>
+            <InputTextArea id="summary" @bind-Value="cv.Summary" />
+        </div>
+
+        <div>
+            <label for="name">Name:</label>
+            <InputText id="name" @bind-Value="cv.Name" />
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <InputText id="email" @bind-Value="cv.Email" />
+        </div>
+
+        <div>
+            <label for="phoneNumber">Phone Number:</label>
+            <InputText id="phoneNumber" @bind-Value="cv.PhoneNumber" />
+        </div>
+
+        <div>
+            <label for="linkedIn">LinkedIn:</label>
+            <InputText id="linkedIn" @bind-Value="cv.LinkedIn" />
+        </div>
+
+        <div>
+            <label for="gitHub">GitHub:</label>
+            <InputText id="gitHub" @bind-Value="cv.GitHub" />
+        </div>
+    </fieldSet>
+
+    <!--EDUCATION-->
+        <fieldset>
+            <legend>Add Degree</legend>
+            <div>
+                <label for="newTitle">Title:</label>
+                <InputText id="newTitle" @bind-Value="newDegree.Title" />
+            </div>
+            <div>
+                <label for="newSchool">School:</label>
+                <InputText id="newSchool" @bind-Value="newDegree.School" />
+            </div>
+            <div>
+                <label for="newLocation">Location:</label>
+                <InputText id="newLocation" @bind-Value="newDegree.Location" />
+            </div>
+            <div>
+                <label for="newStartDate">Start Date:</label>
+                <InputText id="newStartDate" @bind-Value="newDegree.StartDate" />
+            </div>
+            <div>
+                <label for="newEndDate">End Date:</label>
+                <InputText id="newEndDate" @bind-Value="newDegree.EndDate" />
+            </div>
+            <div>
+                <label for="newDescription">Description:</label>
+                <InputTextArea id="newDescription" @bind-Value="newDegree.Description" />
+            </div>
+            <button @onclick="AddNewDegree">Add Degree</button>
+        </fieldset>
+
+    <!--EXPERIENCE-->
+
+        <fieldset>
+            <legend>Add Experience</legend>
+            <div>
+                <label for="newTitle">Title:</label>
+                <InputText id="newTitle" @bind-Value="newExperience.Title" />
+            </div>
+            <div>
+                <label for="newCompany">Company:</label>
+                <InputText id="newCompany" @bind-Value="newExperience.Company" />
+            </div>
+            <div>
+                <label for="newLocation">Location:</label>
+                <InputText id="newLocation" @bind-Value="newExperience.Location" />
+            </div>
+            <div>
+                <label for="newStartDate">Start Date:</label>
+                <InputText id="newStartDate" @bind-Value="newExperience.StartDate" />
+            </div>
+            <div>
+                <label for="newEndDate">End Date:</label>
+                <InputText id="newEndDate" @bind-Value="newExperience.EndDate" />
+            </div>
+            <div>
+                <label for="newDescription">Description:</label>
+                <InputTextArea id="newDescription" @bind-Value="newExperience.Description" />
+            </div>
+            <button @onclick="AddNewExperience">Add Experience</button>
+        </fieldset>
+
+    <!--SKILLS-->
+        <fieldset>
+            <legend>Skills</legend>
+            <div>
+                <label for="newSkill">New Skill:</label>
+                <InputText id="newSkill" @bind-Value="newSkill" />
+            </div>
+            <button @onclick="AddNewSkill" style="margin-top:1rem">Add Skill</button>
+
+            @if (cv.Skills != null)
+            {
+                for (int i = 0; i < cv.Skills.Length; i++)
+                {
+
+                    @if (!string.IsNullOrWhiteSpace(cv.Skills[i]))
+                    {
+                        <div>
+                            <label for="skill">Skill:</label>
+                            <InputText id="skill" @bind-Value="cv.Skills[i]" />
+                        </div>
+                    }
+
+                }
+            }
+        </fieldset>
+
+        <!--PROJECTS-->
+        <fieldset>
+            <legend>Add Project</legend>
+            <div>
+                <label for="newName">Name:</label>
+                <InputText id="newName" @bind-Value="newProject.Name" />
+            </div>
+            <div>
+                <label for="newDescription">Description:</label>
+                <InputTextArea id="newDescription" @bind-Value="newProject.Description" />
+            </div>
+            <div>
+                <label for="newTechnologies">Technologies:</label>
+                <InputText id="newTechnologies" @bind-Value="newProject.Technologies" />
+            </div>
+            <div>
+                <label for="newFeatures">Features:</label>
+                <InputText id="newFeatures" @bind-Value="newProject.Features" />
+            </div>
+            <button @onclick="AddNewProject" style="margin-top:1rem">Add Project</button>
+        </fieldset>
+
+
+ 
+    
+    <button type="submit">Save</button>
+</EditForm>
+</div>
+
+
+@code {
+    private CV cv = new CV();
+    private string newSkill = string.Empty;
+    private Experience newExperience = new Experience();
+    private Degree newDegree = new Degree();
+private Project newProject = new Project();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {            
+            try
+            {
+                var cvs = await Http.GetFromJsonAsync<List<CV>>("api/cv");
+                cv = cvs?.FirstOrDefault() ?? new CV();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading CV data: {ex.Message}");
+            }
+        }
+        else
+        {
+            NavigationManager.NavigateTo("login");
+        }
+    }
+
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {           
+            await Http.PutAsJsonAsync($"api/cv/{cv.Id}", cv);
+            NavigationManager.NavigateTo("/");
+            
+        }
+        catch (Exception ex)
+        {
+           
+            Console.WriteLine($"Error saving CV data: {ex.Message}");
+        }
+    }
+
+    private void NavigateToHome()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+
+    void AddNewSkill()
+    {
+        cv.AddSkill(newSkill);
+        newSkill = string.Empty; 
+    }    
+    void AddNewExperience()
+    {
+        cv.AddExperience(newExperience);
+        newExperience = new Experience(); 
+    }
+    void AddNewDegree()
+    {
+        cv.AddDegree(newDegree);
+        newDegree = new Degree();
+    }
+    void AddNewProject()
+    {
+        cv.AddProject(newProject);
+        newProject = new Project(); 
+    }   
+}
+
+
+
+
+
+

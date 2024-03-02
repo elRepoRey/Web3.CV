@@ -1,6 +1,6 @@
 @Delgado.Server_HostAddress = http://localhost:5107
 
-GET {{Delgado.Server_HostAddress}}/weatherforecast/
+GET {{Delgado.Server_HostAddress}}/api/cv
 Accept: application/json
 
 ###

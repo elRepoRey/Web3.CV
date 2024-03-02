@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.Components.Web;
+
 
 namespace Delgado.Run
 {
@@ -11,9 +12,29 @@ namespace Delgado.Run
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            
+            builder.Configuration.AddJsonFile("appsettings.json");
 
-            await builder.Build().RunAsync();
+            var url = builder.Configuration["ApiUrl"] ?? "https://localhost:7036";
+            builder.Services.AddScoped(sp => new HttpClient
+            { 
+                BaseAddress = new Uri(url),
+                
+            });
+           
+            builder.Services.AddMsalAuthentication(options =>
+            {
+                builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
+                var redirectUri = builder.Configuration["AzureAd:RedirectUri"];
+                if (!string.IsNullOrWhiteSpace(redirectUri))
+                {
+                    options.ProviderOptions.Authentication.RedirectUri = redirectUri;
+                }
+
+            });
+
+            var host = builder.Build();
+            await host.RunAsync();
         }
     }
 }
