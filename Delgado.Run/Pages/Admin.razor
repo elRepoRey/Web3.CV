@@ -1,11 +1,11 @@
 ﻿@page "/admin"
-@attribute [Authorize]
+
 @inject HttpClient Http
 @using Delgado.Shared
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Globalization
-@inject AuthenticationStateProvider AuthenticationStateProvider
+
 @inject NavigationManager NavigationManager
 @using System.Security.Claims
 @inject IConfiguration Configuration
@@ -200,7 +200,7 @@
                 <label for="newDescription">Description:</label>
                 <InputTextArea id="newDescription" @bind-Value="newDegree.Description" />
             </div>
-            <button @onclick="AddNewDegree">Add Degree</button>
+            <button @onclick:preventDefault="true" @onclick:stopPropagation="true"  @onclick="AddNewDegree">Add Degree</button>
         </fieldset>
 
     <!--EXPERIENCE-->
@@ -231,7 +231,7 @@
                 <label for="newDescription">Description:</label>
                 <InputTextArea id="newDescription" @bind-Value="newExperience.Description" />
             </div>
-            <button @onclick="AddNewExperience">Add Experience</button>
+            <button @onclick:preventDefault="true" @onclick:stopPropagation="true" @onclick="AddNewExperience">Add Experience</button>
         </fieldset>
 
     <!--SKILLS-->
@@ -241,7 +241,7 @@
                 <label for="newSkill">New Skill:</label>
                 <InputText id="newSkill" @bind-Value="newSkill" />
             </div>
-            <button @onclick="AddNewSkill" style="margin-top:1rem">Add Skill</button>
+            <button @onclick:preventDefault="true" @onclick:stopPropagation="true"  @onclick="AddNewSkill" style="margin-top:1rem">Add Skill</button>
 
             @if (cv.Skills != null)
             {
@@ -279,7 +279,7 @@
                 <label for="newFeatures">Features:</label>
                 <InputText id="newFeatures" @bind-Value="newProject.Features" />
             </div>
-            <button @onclick="AddNewProject" style="margin-top:1rem">Add Project</button>
+            <button @onclick:preventDefault="true" @onclick:stopPropagation="true" @onclick="AddNewProject" style="margin-top:1rem">Add Project</button>
         </fieldset>
 
 
@@ -299,11 +299,7 @@ private Project newProject = new Project();
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        if (user.Identity.IsAuthenticated)
-        {            
+                   
             try
             {
                 var cvs = await Http.GetFromJsonAsync<List<CV>>("api/cv");
@@ -313,11 +309,8 @@ private Project newProject = new Project();
             {
                 Console.WriteLine($"Error loading CV data: {ex.Message}");
             }
-        }
-        else
-        {
-            NavigationManager.NavigateTo("login");
-        }
+       
+       
     }
 
 

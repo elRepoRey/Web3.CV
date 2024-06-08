@@ -22,16 +22,21 @@ namespace Delgado.Server
                                        .AllowAnyHeader()
                                        .AllowAnyMethod());
             });
-          
-                            
-            var DBConnectionString = builder.Configuration["Zoormongodb"];
-            if (string.IsNullOrEmpty(DBConnectionString))
+
+
+            var mongoConnectionString = builder.Configuration.GetSection("MongoDB:ConnectionString").Value;
+            var mongoDatabaseName = builder.Configuration.GetSection("MongoDB:DatabaseName").Value;
+            if (string.IsNullOrEmpty(mongoConnectionString))
             {
-                throw new Exception("Zoormongodb is not set in the configuration");
+                throw new Exception("mongoConnectionString is not set in the configuration");
+            }
+            if (string.IsNullOrEmpty(mongoDatabaseName))
+            {
+                throw new Exception("mongoDatabaseName is not set in the configuration");
             }
             else
             {
-                builder.Services.AddSingleton(new DBConnect<CV>(DBConnectionString, "CV"));
+                builder.Services.AddSingleton(new DBConnect<CV>(mongoConnectionString, mongoDatabaseName));
             }
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

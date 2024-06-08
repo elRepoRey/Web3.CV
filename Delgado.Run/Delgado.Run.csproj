@@ -20,10 +20,17 @@
 
   <ItemGroup>
     <Folder Include="Images\" />
+    <Folder Include="Shared\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Delgado.Shared\Delgado.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

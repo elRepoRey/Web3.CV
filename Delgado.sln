@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delgado.Server", "Delgado.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delgado.Shared", "Delgado.Shared\Delgado.Shared.csproj", "{374B02AB-C969-4D94-888C-AA129D01100F}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{32717902-A7F7-40EE-932C-6923EDEB72CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{374B02AB-C969-4D94-888C-AA129D01100F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{374B02AB-C969-4D94-888C-AA129D01100F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{374B02AB-C969-4D94-888C-AA129D01100F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32717902-A7F7-40EE-932C-6923EDEB72CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32717902-A7F7-40EE-932C-6923EDEB72CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32717902-A7F7-40EE-932C-6923EDEB72CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32717902-A7F7-40EE-932C-6923EDEB72CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
