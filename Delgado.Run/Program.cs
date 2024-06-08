@@ -12,7 +12,7 @@ namespace Delgado.Run
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            var url = "https://localhost:59595";
+            var url = "https://localhost:61398";
             builder.Services.AddScoped(sp => new HttpClient
             { 
                 BaseAddress = new Uri(url),
