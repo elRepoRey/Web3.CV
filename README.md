@@ -20,7 +20,7 @@ To run the application with Docker, follow these steps:
 2.	Navigate to the root directory of the project in your terminal.
 3.	Build the Docker image by running the command: docker build -t delgado-app .
 4.	Run the Docker image by running the command: docker run -p 8000:80 delgado-app
-5.	Open your web browser and navigate to http://localhost:8080/swagger/index.html to view the application.
+5.	Open your web browser and navigate to https://localhost:8081/swagger/index.html to view the application.
 
 Technical Choices
 
