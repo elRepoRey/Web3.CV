@@ -23,7 +23,7 @@ To run the application with Docker, follow these steps:
    - The MongoDB database will be running on port 27017.
    - The .NET API will be available on `https://localhost:8081`.
 4. Open your web browser and navigate to `http://localhost:8081/swagger` to access the Swagger UI for the API.
-5. Run the Blazor WebAssembly app "Delgado.Run" with HTTPS, preferably on port 7155, as this port is allowed in the CORS settings. You will need to do this separately from Docker, unless you add a service for it in the Docker Compose file.
+5. Run the Blazor WebAssembly app "Delgado.Run" with HTTPS, preferably on port 7155, as this port is allowed in the CORS settings.
 6. The homepage "Delgado.Run" is set to look for the API at `http://localhost:8081`.
 
 
