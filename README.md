@@ -1,6 +1,6 @@
 CV Application Documentation
 
-Description
+
 The cv web application is a .NET Core application that serves as a personal CV website. 
 It uses a MongoDB database to store CV data, and provides an admin interface for managing the CV data. 
 The front-end is built with Blazor WebAssembly, and the back-end is a .NET Core Web API.
