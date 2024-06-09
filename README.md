@@ -16,11 +16,16 @@ The application provides the following functionality:
 Running the Application with Docker
 
 To run the application with Docker, follow these steps:
-1.	Install Docker on your machine.
-2.	Navigate to the root directory of the project in your terminal.
-3.	Build the Docker image by running the command: docker build -t delgado-app .
-4.	Run the Docker image by running the command: docker run -p 8000:80 delgado-app
-5.	Open your web browser and navigate to https://localhost:8081/swagger/index.html to view the application.
+
+1. Install Docker on your machine.
+2. Open the project in Visual Studio Code and navigate to the root directory of the project in your terminal.
+3. Build the Docker images and run the project by running the command: `docker-compose up`
+   - The MongoDB database will be running on port 27017.
+   - The .NET API will be available on `https://localhost:8081`.
+4. Open your web browser and navigate to `http://localhost:8081/swagger` to access the Swagger UI for the API.
+5. Run the Blazor WebAssembly app "Delgado.Run" with HTTPS, preferably on port 7155, as this port is allowed in the CORS settings. You will need to do this separately from Docker, unless you add a service for it in the Docker Compose file.
+6. The homepage "Delgado.Run" is set to look for the API at `http://localhost:8081`.
+
 
 Technical Choices
 
